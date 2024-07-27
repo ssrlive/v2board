@@ -5,11 +5,13 @@ namespace App\Plugins\Telegram\Commands;
 use App\Models\User;
 use App\Plugins\Telegram\Telegram;
 
-class UnBind extends Telegram {
+class UnBind extends Telegram
+{
     public $command = '/unbind';
     public $description = '将Telegram账号从网站解绑';
 
-    public function handle($message, $match = []) {
+    public function handle($message, $match = [])
+    {
         if (!$message->is_private) return;
         $user = User::where('telegram_id', $message->chat_id)->first();
         $telegramService = $this->telegramService;

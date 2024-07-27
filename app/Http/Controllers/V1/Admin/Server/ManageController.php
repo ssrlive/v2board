@@ -21,15 +21,15 @@ class ManageController extends Controller
     {
         ini_set('post_max_size', '1m');
         $params = $request->only(
-                'shadowsocks',
-                'vmess',
-                'trojan',
-                'hysteria'
-            ) ?? [];
+            'shadowsocks',
+            'vmess',
+            'trojan',
+            'hysteria'
+        ) ?? [];
         DB::beginTransaction();
         foreach ($params as $k => $v) {
             $model = 'App\\Models\\Server' . ucfirst($k);
-            foreach($v as $id => $sort) {
+            foreach ($v as $id => $sort) {
                 if (!$model::find($id)->update(['sort' => $sort])) {
                     DB::rollBack();
                     abort(500, '保存失败');

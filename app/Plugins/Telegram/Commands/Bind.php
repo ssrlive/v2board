@@ -5,11 +5,13 @@ namespace App\Plugins\Telegram\Commands;
 use App\Models\User;
 use App\Plugins\Telegram\Telegram;
 
-class Bind extends Telegram {
+class Bind extends Telegram
+{
     public $command = '/bind';
     public $description = '将Telegram账号绑定到网站';
 
-    public function handle($message, $match = []) {
+    public function handle($message, $match = [])
+    {
         if (!$message->is_private) return;
         if (!isset($message->args[0])) {
             abort(500, '参数有误，请携带订阅地址发送');

@@ -123,5 +123,4 @@ class CheckCommission extends Command
         }
         return true;
     }
-
 }

@@ -4,12 +4,15 @@ namespace App\Services;
 
 use App\Utils\Dict;
 
-class ConfigService {
-    public function get($key) {
+class ConfigService
+{
+    public function get($key)
+    {
         $config = $this->getDefaultConfig();
         return \Arr::get($config, $key);
     }
-    public function getDefaultConfig() {
+    public function getDefaultConfig()
+    {
         return [
             'invite' => [
                 'invite_force' => (int)config('v2board.invite_force', 0),

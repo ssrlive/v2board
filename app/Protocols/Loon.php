@@ -23,7 +23,8 @@ class Loon
         header("Subscription-Userinfo: upload={$user['u']}; download={$user['d']}; total={$user['transfer_enable']}; expire={$user['expired_at']}");
 
         foreach ($servers as $item) {
-            if ($item['type'] === 'shadowsocks'
+            if (
+                $item['type'] === 'shadowsocks'
                 && in_array($item['cipher'], [
                     'aes-128-gcm',
                     'aes-192-gcm',

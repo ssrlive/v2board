@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Routes\V1;
 
 use Illuminate\Contracts\Routing\Registrar;

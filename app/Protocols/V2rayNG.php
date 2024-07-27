@@ -97,6 +97,4 @@ class V2rayNG
         $uri .= "\r\n";
         return $uri;
     }
-
-
 }

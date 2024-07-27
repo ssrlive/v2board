@@ -148,6 +148,4 @@ class StatController extends Controller
             'total' => $total
         ];
     }
-
 }
-

@@ -6,11 +6,13 @@ use App\Models\User;
 use App\Plugins\Telegram\Telegram;
 use App\Services\TicketService;
 
-class ReplyTicket extends Telegram {
+class ReplyTicket extends Telegram
+{
     public $regex = '/[#](.*)/';
     public $description = '快速工单回复';
 
-    public function handle($message, $match = []) {
+    public function handle($message, $match = [])
+    {
         if (!$message->is_private) return;
         $this->replayTicket($message, $match[1]);
     }

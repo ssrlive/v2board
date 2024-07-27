@@ -5,7 +5,8 @@ namespace App\Payments;
 use Omnipay\Omnipay;
 use Omnipay\WechatPay\Helper;
 
-class WechatPayNative {
+class WechatPayNative
+{
     public function __construct($config)
     {
         $this->config = $config;

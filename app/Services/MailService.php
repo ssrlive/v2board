@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Cache;
 
 class MailService
 {
-    public function remindTraffic (User $user)
+    public function remindTraffic(User $user)
     {
         if (!$user->remind_traffic) return;
         if (!$this->remindTrafficIsWarnValue($user->u, $user->d, $user->transfer_enable)) return;
@@ -35,7 +35,7 @@ class MailService
         SendEmailJob::dispatch([
             'email' => $user->email,
             'subject' => __('The service in :app_name is about to expire', [
-               'app_name' =>  config('v2board.app_name', 'V2board')
+                'app_name' =>  config('v2board.app_name', 'V2board')
             ]),
             'template_name' => 'remindExpire',
             'template_value' => [

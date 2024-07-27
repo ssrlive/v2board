@@ -40,9 +40,9 @@ class StatController extends Controller
             ];
         }
 
-        $stats = array_reduce($stats, function($carry, $item) {
-            foreach($item as $key => $value) {
-                if(isset($carry[$key]) && $carry[$key]) {
+        $stats = array_reduce($stats, function ($carry, $item) {
+            foreach ($item as $key => $value) {
+                if (isset($carry[$key]) && $carry[$key]) {
                     $carry[$key] += $value;
                 } else {
                     $carry[$key] = $value;
@@ -89,4 +89,3 @@ class StatController extends Controller
         ];
     }
 }
-

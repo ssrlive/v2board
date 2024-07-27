@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Services;
 
 use App\Models\CommissionLog;
@@ -10,7 +11,8 @@ use App\Models\User;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
-class StatisticalService {
+class StatisticalService
+{
     protected $userStats;
     protected $startAt;
     protected $endAt;
@@ -21,15 +23,18 @@ class StatisticalService {
         ini_set('memory_limit', -1);
     }
 
-    public function setStartAt($timestamp) {
+    public function setStartAt($timestamp)
+    {
         $this->startAt = $timestamp;
     }
 
-    public function setEndAt($timestamp) {
+    public function setEndAt($timestamp)
+    {
         $this->endAt = $timestamp;
     }
 
-    public function setServerStats() {
+    public function setServerStats()
+    {
         $this->serverStats = Cache::store('file')->get("stat_server_{$this->startAt}");
         $this->serverStats = json_decode($this->serverStats, true) ?? [];
         if (!is_array($this->serverStats)) {
@@ -37,7 +42,8 @@ class StatisticalService {
         }
     }
 
-    public function setUserStats() {
+    public function setUserStats()
+    {
         $this->userStats = Cache::store('file')->get("stat_user_{$this->startAt}");
         $this->userStats = json_decode($this->userStats, true) ?? [];
         if (!is_array($this->userStats)) {
@@ -80,9 +86,9 @@ class StatisticalService {
             ->whereNotNull('invite_user_id')
             ->count();
         $data['transfer_used_total'] = StatServer::where('created_at', '>=', $startAt)
-                ->where('created_at', '<', $endAt)
-                ->select(DB::raw('SUM(u) + SUM(d) as total'))
-                ->value('total') ?? 0;
+            ->where('created_at', '<', $endAt)
+            ->select(DB::raw('SUM(u) + SUM(d) as total'))
+            ->value('total') ?? 0;
         return $data;
     }
 
@@ -177,31 +183,31 @@ class StatisticalService {
     {
         switch ($type) {
             case "paid_total": {
-                return Stat::select([
-                    '*',
-                    DB::raw('paid_total / 100 as paid_total')
-                ])
-                    ->where('record_at', '>=', $this->startAt)
-                    ->where('record_at', '<', $this->endAt)
-                    ->orderBy('record_at', 'ASC')
-                    ->get();
-            }
+                    return Stat::select([
+                        '*',
+                        DB::raw('paid_total / 100 as paid_total')
+                    ])
+                        ->where('record_at', '>=', $this->startAt)
+                        ->where('record_at', '<', $this->endAt)
+                        ->orderBy('record_at', 'ASC')
+                        ->get();
+                }
             case "commission_total": {
-                return Stat::select([
-                    '*',
-                    DB::raw('commission_total / 100 as commission_total')
-                ])
-                    ->where('record_at', '>=', $this->startAt)
-                    ->where('record_at', '<', $this->endAt)
-                    ->orderBy('record_at', 'ASC')
-                    ->get();
-            }
+                    return Stat::select([
+                        '*',
+                        DB::raw('commission_total / 100 as commission_total')
+                    ])
+                        ->where('record_at', '>=', $this->startAt)
+                        ->where('record_at', '<', $this->endAt)
+                        ->orderBy('record_at', 'ASC')
+                        ->get();
+                }
             case "register_count": {
-                return Stat::where('record_at', '>=', $this->startAt)
-                    ->where('record_at', '<', $this->endAt)
-                    ->orderBy('record_at', 'ASC')
-                    ->get();
-            }
+                    return Stat::where('record_at', '>=', $this->startAt)
+                        ->where('record_at', '<', $this->endAt)
+                        ->orderBy('record_at', 'ASC')
+                        ->get();
+                }
         }
     }
 
@@ -209,14 +215,14 @@ class StatisticalService {
     {
         switch ($type) {
             case 'server_traffic_rank': {
-                return $this->buildServerTrafficRank($limit);
-            }
+                    return $this->buildServerTrafficRank($limit);
+                }
             case 'user_consumption_rank': {
-                return $this->buildUserConsumptionRank($limit);
-            }
+                    return $this->buildUserConsumptionRank($limit);
+                }
             case 'invite_rank': {
-                return $this->buildInviteRank($limit);
-            }
+                    return $this->buildInviteRank($limit);
+                }
         }
     }
 

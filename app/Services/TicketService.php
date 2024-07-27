@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Services;
 
 
@@ -9,7 +10,8 @@ use App\Models\User;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
-class TicketService {
+class TicketService
+{
     public function reply($ticket, $message, $userId)
     {
         DB::beginTransaction();
@@ -31,7 +33,7 @@ class TicketService {
         return $ticketMessage;
     }
 
-    public function replyByAdmin($ticketId, $message, $userId):void
+    public function replyByAdmin($ticketId, $message, $userId): void
     {
         $ticket = Ticket::where('id', $ticketId)
             ->first();

@@ -97,5 +97,4 @@ class Passwall
         $uri .= "\r\n";
         return $uri;
     }
-
 }

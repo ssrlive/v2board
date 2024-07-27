@@ -60,41 +60,41 @@ class UserService
         if ($user->plan->reset_traffic_method === 2) return null;
         switch (true) {
             case ($user->plan->reset_traffic_method === NULL): {
-                $resetTrafficMethod = config('v2board.reset_traffic_method', 0);
-                switch ((int)$resetTrafficMethod) {
-                    // month first day
-                    case 0:
-                        return $this->calcResetDayByMonthFirstDay();
-                    // expire day
-                    case 1:
-                        return $this->calcResetDayByExpireDay($user->expired_at);
-                    // no action
-                    case 2:
-                        return null;
-                    // year first day
-                    case 3:
-                        return $this->calcResetDayByYearFirstDay();
-                    // year expire day
-                    case 4:
-                        return $this->calcResetDayByYearExpiredAt($user->expired_at);
+                    $resetTrafficMethod = config('v2board.reset_traffic_method', 0);
+                    switch ((int)$resetTrafficMethod) {
+                            // month first day
+                        case 0:
+                            return $this->calcResetDayByMonthFirstDay();
+                            // expire day
+                        case 1:
+                            return $this->calcResetDayByExpireDay($user->expired_at);
+                            // no action
+                        case 2:
+                            return null;
+                            // year first day
+                        case 3:
+                            return $this->calcResetDayByYearFirstDay();
+                            // year expire day
+                        case 4:
+                            return $this->calcResetDayByYearExpiredAt($user->expired_at);
+                    }
+                    break;
                 }
-                break;
-            }
             case ($user->plan->reset_traffic_method === 0): {
-                return $this->calcResetDayByMonthFirstDay();
-            }
+                    return $this->calcResetDayByMonthFirstDay();
+                }
             case ($user->plan->reset_traffic_method === 1): {
-                return $this->calcResetDayByExpireDay($user->expired_at);
-            }
+                    return $this->calcResetDayByExpireDay($user->expired_at);
+                }
             case ($user->plan->reset_traffic_method === 2): {
-                return null;
-            }
+                    return null;
+                }
             case ($user->plan->reset_traffic_method === 3): {
-                return $this->calcResetDayByYearFirstDay();
-            }
+                    return $this->calcResetDayByYearFirstDay();
+                }
             case ($user->plan->reset_traffic_method === 4): {
-                return $this->calcResetDayByYearExpiredAt($user->expired_at);
-            }
+                    return $this->calcResetDayByYearExpiredAt($user->expired_at);
+                }
         }
         return null;
     }
@@ -125,9 +125,9 @@ class UserService
                 ->orWhere('expired_at', 0);
         })
             ->where(function ($query) {
-            $query->where('plan_id', NULL)
-                ->orWhere('transfer_enable', 0);
-        })
+                $query->where('plan_id', NULL)
+                    ->orWhere('transfer_enable', 0);
+            })
             ->get();
     }
 
@@ -141,7 +141,7 @@ class UserService
         return User::all();
     }
 
-    public function addBalance(int $userId, int $balance):bool
+    public function addBalance(int $userId, int $balance): bool
     {
         $user = User::lockForUpdate()->find($userId);
         if (!$user) {
@@ -157,7 +157,7 @@ class UserService
         return true;
     }
 
-    public function isNotCompleteOrderByUserId(int $userId):bool
+    public function isNotCompleteOrderByUserId(int $userId): bool
     {
         $order = Order::whereIn('status', [0, 1])
             ->where('user_id', $userId)

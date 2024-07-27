@@ -70,7 +70,6 @@ class AuthController extends Controller
         return response([
             'data' => $link
         ]);
-
     }
 
     public function register(AuthRegister $request)
@@ -93,8 +92,8 @@ class AuthController extends Controller
         if ((int)config('v2board.email_whitelist_enable', 0)) {
             if (!Helper::emailSuffixVerify(
                 $request->input('email'),
-                config('v2board.email_whitelist_suffix', Dict::EMAIL_WHITELIST_SUFFIX_DEFAULT))
-            ) {
+                config('v2board.email_whitelist_suffix', Dict::EMAIL_WHITELIST_SUFFIX_DEFAULT)
+            )) {
                 abort(500, __('Email suffix is not in the Whitelist'));
             }
         }
@@ -207,8 +206,8 @@ class AuthController extends Controller
             $user->password_algo,
             $user->password_salt,
             $password,
-            $user->password)
-        ) {
+            $user->password
+        )) {
             if ((int)config('v2board.password_limit_enable')) {
                 Cache::put(
                     CacheKey::get('PASSWORD_ERROR_LIMIT', $email),

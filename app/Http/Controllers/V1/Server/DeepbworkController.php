@@ -16,9 +16,10 @@ use Illuminate\Support\Facades\Log;
  * V2ray Aurora
  * Github: https://github.com/tokumeikoi/aurora
  */
+
 class DeepbworkController extends Controller
 {
-    CONST V2RAY_CONFIG = '{"log":{"loglevel":"debug","access":"access.log","error":"error.log"},"api":{"services":["HandlerService","StatsService"],"tag":"api"},"dns":{},"stats":{},"inbounds":[{"port":443,"protocol":"vmess","settings":{"clients":[]},"sniffing":{"enabled":true,"destOverride":["http","tls"]},"streamSettings":{"network":"tcp"},"tag":"proxy"},{"listen":"127.0.0.1","port":23333,"protocol":"dokodemo-door","settings":{"address":"0.0.0.0"},"tag":"api"}],"outbounds":[{"protocol":"freedom","settings":{}},{"protocol":"blackhole","settings":{},"tag":"block"}],"routing":{"rules":[{"type":"field","inboundTag":"api","outboundTag":"api"}]},"policy":{"levels":{"0":{"handshake":4,"connIdle":300,"uplinkOnly":5,"downlinkOnly":30,"statsUserUplink":true,"statsUserDownlink":true}}}}';
+    const V2RAY_CONFIG = '{"log":{"loglevel":"debug","access":"access.log","error":"error.log"},"api":{"services":["HandlerService","StatsService"],"tag":"api"},"dns":{},"stats":{},"inbounds":[{"port":443,"protocol":"vmess","settings":{"clients":[]},"sniffing":{"enabled":true,"destOverride":["http","tls"]},"streamSettings":{"network":"tcp"},"tag":"proxy"},{"listen":"127.0.0.1","port":23333,"protocol":"dokodemo-door","settings":{"address":"0.0.0.0"},"tag":"api"}],"outbounds":[{"protocol":"freedom","settings":{}},{"protocol":"blackhole","settings":{},"tag":"block"}],"routing":{"rules":[{"type":"field","inboundTag":"api","outboundTag":"api"}]},"policy":{"levels":{"0":{"handshake":4,"connIdle":300,"uplinkOnly":5,"downlinkOnly":30,"statsUserUplink":true,"statsUserDownlink":true}}}}';
     public function __construct(Request $request)
     {
         $token = $request->input('token');
@@ -54,7 +55,7 @@ class DeepbworkController extends Controller
             array_push($result, $user);
         }
         $eTag = sha1(json_encode($result));
-        if (strpos($request->header('If-None-Match'), $eTag) !== false ) {
+        if (strpos($request->header('If-None-Match'), $eTag) !== false) {
             abort(304);
         }
         return response([
@@ -66,7 +67,7 @@ class DeepbworkController extends Controller
     // 后端提交数据
     public function submit(Request $request)
     {
-//         Log::info('serverSubmitData:' . $request->input('node_id') . ':' . file_get_contents('php://input'));
+        // Log::info('serverSubmitData:' . $request->input('node_id') . ':' . file_get_contents('php://input'));
         $server = ServerVmess::find($request->input('node_id'));
         if (!$server) {
             return response([

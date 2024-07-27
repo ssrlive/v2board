@@ -5,7 +5,8 @@ namespace App\Payments;
 use Stripe\Stripe;
 use Stripe\Checkout\Session;
 
-class StripeCheckout {
+class StripeCheckout
+{
     public function __construct($config)
     {
         $this->config = $config;

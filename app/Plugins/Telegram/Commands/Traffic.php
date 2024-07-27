@@ -6,11 +6,13 @@ use App\Models\User;
 use App\Plugins\Telegram\Telegram;
 use App\Utils\Helper;
 
-class Traffic extends Telegram {
+class Traffic extends Telegram
+{
     public $command = '/traffic';
     public $description = '查询流量信息';
 
-    public function handle($message, $match = []) {
+    public function handle($message, $match = [])
+    {
         $telegramService = $this->telegramService;
         if (!$message->is_private) return;
         $user = User::where('telegram_id', $message->chat_id)->first();

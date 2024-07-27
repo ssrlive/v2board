@@ -109,5 +109,4 @@ class General
         $uri .= "\r\n";
         return $uri;
     }
-
 }

@@ -22,13 +22,14 @@ class Surge
         $user = $this->user;
 
         $appName = config('v2board.app_name', 'V2Board');
-        header("content-disposition:attachment;filename*=UTF-8''".rawurlencode($appName).".conf");
+        header("content-disposition:attachment;filename*=UTF-8''" . rawurlencode($appName) . ".conf");
 
         $proxies = '';
         $proxyGroup = '';
 
         foreach ($servers as $item) {
-            if ($item['type'] === 'shadowsocks'
+            if (
+                $item['type'] === 'shadowsocks'
                 && in_array($item['cipher'], [
                     'aes-128-gcm',
                     'aes-192-gcm',
@@ -72,10 +73,10 @@ class Surge
         $config = str_replace('$proxies', $proxies, $config);
         $config = str_replace('$proxy_group', rtrim($proxyGroup, ', '), $config);
 
-        $upload = round($user['u'] / (1024*1024*1024), 2);
-        $download = round($user['d'] / (1024*1024*1024), 2);
+        $upload = round($user['u'] / (1024 * 1024 * 1024), 2);
+        $download = round($user['d'] / (1024 * 1024 * 1024), 2);
         $useTraffic = $upload + $download;
-        $totalTraffic = round($user['transfer_enable'] / (1024*1024*1024), 2);
+        $totalTraffic = round($user['transfer_enable'] / (1024 * 1024 * 1024), 2);
         $expireDate = $user['expired_at'] === NULL ? '长期有效' : date('Y-m-d H:i:s', $user['expired_at']);
         $subscribeInfo = "title={$appName}订阅信息, content=上传流量：{$upload}GB\\n下载流量：{$download}GB\\n剩余流量：{$useTraffic}GB\\n套餐流量：{$totalTraffic}GB\\n到期时间：{$expireDate}";
         $config = str_replace('$subscribe_info', $subscribeInfo, $config);

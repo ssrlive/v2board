@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Logging;
 
 use Illuminate\Support\Facades\DB;
@@ -16,11 +17,11 @@ class MysqlLoggerHandler extends AbstractProcessingHandler
 
     protected function write(array $record): void
     {
-        try{
-            if(isset($record['context']['exception']) && is_object($record['context']['exception'])){
+        try {
+            if (isset($record['context']['exception']) && is_object($record['context']['exception'])) {
                 $record['context']['exception'] = (array)$record['context']['exception'];
             }
-            $record['request_data'] = request()->all() ??[];
+            $record['request_data'] = request()->all() ?? [];
             $log = [
                 'title' => $record['message'],
                 'level' => $record['level_name'],
@@ -28,7 +29,7 @@ class MysqlLoggerHandler extends AbstractProcessingHandler
                 'uri' => $record['request_uri'] ?? request()->getRequestUri(),
                 'method' => $record['request_method'] ?? request()->getMethod(),
                 'ip' => request()->getClientIp(),
-                'data' => json_encode($record['request_data']) ,
+                'data' => json_encode($record['request_data']),
                 'context' => isset($record['context']) ? json_encode($record['context']) : '',
                 'created_at' => strtotime($record['datetime']),
                 'updated_at' => strtotime($record['datetime']),
@@ -37,8 +38,8 @@ class MysqlLoggerHandler extends AbstractProcessingHandler
             LogModel::insert(
                 $log
             );
-        }catch (\Exception $e){
-            Log::channel('daily')->error($e->getMessage().$e->getFile().$e->getTraceAsString());
+        } catch (\Exception $e) {
+            Log::channel('daily')->error($e->getMessage() . $e->getFile() . $e->getTraceAsString());
         }
     }
 }

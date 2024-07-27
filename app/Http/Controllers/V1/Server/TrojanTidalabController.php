@@ -16,9 +16,10 @@ use Illuminate\Support\Facades\Log;
  * Tidal Lab Trojan
  * Github: https://github.com/tokumeikoi/tidalab-trojan
  */
+
 class TrojanTidalabController extends Controller
 {
-    CONST TROJAN_CONFIG = '{"run_type":"server","local_addr":"0.0.0.0","local_port":443,"remote_addr":"www.taobao.com","remote_port":80,"password":[],"ssl":{"cert":"server.crt","key":"server.key","sni":"domain.com"},"api":{"enabled":true,"api_addr":"127.0.0.1","api_port":10000}}';
+    const TROJAN_CONFIG = '{"run_type":"server","local_addr":"0.0.0.0","local_port":443,"remote_addr":"www.taobao.com","remote_port":80,"password":[],"ssl":{"cert":"server.crt","key":"server.key","sni":"domain.com"},"api":{"enabled":true,"api_addr":"127.0.0.1","api_port":10000}}';
     public function __construct(Request $request)
     {
         $token = $request->input('token');
@@ -51,7 +52,7 @@ class TrojanTidalabController extends Controller
             array_push($result, $user);
         }
         $eTag = sha1(json_encode($result));
-        if (strpos($request->header('If-None-Match'), $eTag) !== false ) {
+        if (strpos($request->header('If-None-Match'), $eTag) !== false) {
             abort(304);
         }
         return response([

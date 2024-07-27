@@ -2,7 +2,8 @@
 
 namespace App\Payments;
 
-class AlipayF2F {
+class AlipayF2F
+{
     public function __construct($config)
     {
         $this->config = $config;

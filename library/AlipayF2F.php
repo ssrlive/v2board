@@ -1,9 +1,11 @@
 <?php
+
 namespace Library;
 
 use Illuminate\Support\Facades\Http;
 
-class AlipayF2F {
+class AlipayF2F
+{
     private $appId;
     private $privateKey;
     private $alipayPublicKey;

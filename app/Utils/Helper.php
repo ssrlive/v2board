@@ -71,11 +71,15 @@ class Helper
 
     public static function multiPasswordVerify($algo, $salt, $password, $hash)
     {
-        switch($algo) {
-            case 'md5': return md5($password) === $hash;
-            case 'sha256': return hash('sha256', $password) === $hash;
-            case 'md5salt': return md5($password . $salt) === $hash;
-            default: return password_verify($password, $hash);
+        switch ($algo) {
+            case 'md5':
+                return md5($password) === $hash;
+            case 'sha256':
+                return hash('sha256', $password) === $hash;
+            case 'md5salt':
+                return md5($password . $salt) === $hash;
+            default:
+                return password_verify($password, $hash);
         }
     }
 
@@ -119,7 +123,8 @@ class Helper
         return url($path);
     }
 
-    public static function randomPort($range) {
+    public static function randomPort($range)
+    {
         $portRange = explode('-', $range);
         return rand($portRange[0], $portRange[1]);
     }

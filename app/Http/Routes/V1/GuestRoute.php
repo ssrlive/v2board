@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Routes\V1;
 
 use Illuminate\Contracts\Routing\Registrar;
@@ -15,7 +16,7 @@ class GuestRoute
             // Payment
             $router->match(['get', 'post'], '/payment/notify/{method}/{uuid}', 'V1\\Guest\\PaymentController@notify');
             // Comm
-            $router->get ('/comm/config', 'V1\\Guest\\CommController@config');
+            $router->get('/comm/config', 'V1\\Guest\\CommController@config');
         });
     }
 }

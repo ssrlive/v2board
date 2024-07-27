@@ -37,7 +37,7 @@ class TelegramController extends Controller
         // To reduce request, only commands contains @ will get the bot name
         if (count($commandName) == 2) {
             $botName = $this->getBotName();
-            if ($commandName[1] === $botName){
+            if ($commandName[1] === $botName) {
                 $msg->command = $commandName[0];
             }
         }

@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Cache;
 
 class ServerService
 {
-    public function getAvailableVless(User $user):array
+    public function getAvailableVless(User $user): array
     {
         $servers = [];
         $model = ServerVless::orderBy('sort', 'ASC');
@@ -40,7 +40,7 @@ class ServerService
         return $servers;
     }
 
-    public function getAvailableVmess(User $user):array
+    public function getAvailableVmess(User $user): array
     {
         $servers = [];
         $model = ServerVmess::orderBy('sort', 'ASC');
@@ -64,7 +64,7 @@ class ServerService
         return $servers;
     }
 
-    public function getAvailableTrojan(User $user):array
+    public function getAvailableTrojan(User $user): array
     {
         $servers = [];
         $model = ServerTrojan::orderBy('sort', 'ASC');

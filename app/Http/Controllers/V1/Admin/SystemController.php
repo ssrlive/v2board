@@ -36,14 +36,14 @@ class SystemController extends Controller
         ]);
     }
 
-    protected function getScheduleStatus():bool
+    protected function getScheduleStatus(): bool
     {
         return (time() - 120) < Cache::get(CacheKey::get('SCHEDULE_LAST_CHECK_AT', null));
     }
 
-    protected function getHorizonStatus():bool
+    protected function getHorizonStatus(): bool
     {
-        if (! $masters = app(MasterSupervisorRepository::class)->all()) {
+        if (!$masters = app(MasterSupervisorRepository::class)->all()) {
             return false;
         }
 
@@ -94,7 +94,7 @@ class SystemController extends Controller
      */
     protected function totalPausedMasters()
     {
-        if (! $masters = app(MasterSupervisorRepository::class)->all()) {
+        if (!$masters = app(MasterSupervisorRepository::class)->all()) {
             return 0;
         }
 
@@ -103,7 +103,8 @@ class SystemController extends Controller
         })->count();
     }
 
-    public function getSystemLog(Request $request) {
+    public function getSystemLog(Request $request)
+    {
         $current = $request->input('current') ? $request->input('current') : 1;
         $pageSize = $request->input('page_size') >= 10 ? $request->input('page_size') : 10;
         $builder = LogModel::orderBy('created_at', 'DESC')

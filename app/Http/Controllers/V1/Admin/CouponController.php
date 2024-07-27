@@ -82,7 +82,7 @@ class CouponController extends Controller
         $coupon['created_at'] = $coupon['updated_at'] = time();
         $coupon['show'] = 1;
         unset($coupon['generate_count']);
-        for ($i = 0;$i < $request->input('generate_count');$i++) {
+        for ($i = 0; $i < $request->input('generate_count'); $i++) {
             $coupon['code'] = Helper::randomChar(8);
             array_push($coupons, $coupon);
         }
@@ -102,9 +102,9 @@ class CouponController extends Controller
         }
         DB::commit();
         $data = "名称,类型,金额或比例,开始时间,结束时间,可用次数,可用于订阅,券码,生成时间\r\n";
-        foreach($coupons as $coupon) {
+        foreach ($coupons as $coupon) {
             $type = ['', '金额', '比例'][$coupon['type']];
-            $value = ['', ($coupon['value'] / 100),$coupon['value']][$coupon['type']];
+            $value = ['', ($coupon['value'] / 100), $coupon['value']][$coupon['type']];
             $startTime = date('Y-m-d H:i:s', $coupon['started_at']);
             $endTime = date('Y-m-d H:i:s', $coupon['ended_at']);
             $limitUse = $coupon['limit_use'] ?? '不限制';

@@ -125,7 +125,7 @@ class V2boardInstall extends Command
     {
         function set_env_var($key, $value)
         {
-            if (! is_bool(strpos($value, ' '))) {
+            if (!is_bool(strpos($value, ' '))) {
                 $value = '"' . $value . '"';
             }
             $key = strtoupper($key);
@@ -147,7 +147,7 @@ class V2boardInstall extends Command
             fwrite($file, $contents);
             return fclose($file);
         }
-        foreach($data as $key => $value) {
+        foreach ($data as $key => $value) {
             set_env_var($key, $value);
         }
         return true;

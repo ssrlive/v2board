@@ -4,7 +4,7 @@ namespace App\Utils;
 
 class CacheKey
 {
-    CONST KEYS = [
+    const KEYS = [
         'EMAIL_VERIFY_CODE' => '邮箱验证码',
         'LAST_SEND_EMAIL_VERIFY_TIMESTAMP' => '最后一次发送邮箱验证码时间',
         'SERVER_VMESS_ONLINE_USER' => '节点在线用户',

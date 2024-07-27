@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 
 class OrderService
 {
-    CONST STR_TO_TIME = [
+    const STR_TO_TIME = [
         'month_price' => 1,
         'quarter_price' => 3,
         'half_year_price' => 6,
@@ -118,7 +118,7 @@ class OrderService
         $order->total_amount = $order->total_amount - $order->discount_amount;
     }
 
-    public function setInvite(User $user):void
+    public function setInvite(User $user): void
     {
         $order = $this->order;
         if ($user->invite_user_id && ($order->total_amount <= 0)) return;
@@ -194,7 +194,7 @@ class OrderService
         return true;
     }
 
-    public function cancel():bool
+    public function cancel(): bool
     {
         $order = $this->order;
         DB::beginTransaction();

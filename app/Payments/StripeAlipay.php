@@ -5,7 +5,8 @@ namespace App\Payments;
 use Stripe\Source;
 use Stripe\Stripe;
 
-class StripeAlipay {
+class StripeAlipay
+{
     public function __construct($config)
     {
         $this->config = $config;

@@ -20,7 +20,7 @@ class CouponService
             ->first();
     }
 
-    public function use(Order $order):bool
+    public function use(Order $order): bool
     {
         $this->setPlanId($order->plan_id);
         $this->setUserId($order->user_id);
@@ -72,7 +72,7 @@ class CouponService
         $this->period = $period;
     }
 
-    public function checkLimitUseWithUser():bool
+    public function checkLimitUseWithUser(): bool
     {
         $usedCount = Order::where('coupon_id', $this->coupon->id)
             ->where('user_id', $this->userId)

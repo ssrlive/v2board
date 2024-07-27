@@ -47,8 +47,7 @@ class ResetUser extends Command
         }
         ini_set('memory_limit', -1);
         $users = User::all();
-        foreach ($users as $user)
-        {
+        foreach ($users as $user) {
             $user->token = Helper::guid();
             $user->uuid = Helper::guid(true);
             $user->save();

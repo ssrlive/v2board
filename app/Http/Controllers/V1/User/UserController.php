@@ -66,8 +66,8 @@ class UserController extends Controller
             $user->password_algo,
             $user->password_salt,
             $request->input('old_password'),
-            $user->password)
-        ) {
+            $user->password
+        )) {
             abort(500, __('The old password is wrong'));
         }
         $user->password = password_hash($request->input('new_password'), PASSWORD_DEFAULT);

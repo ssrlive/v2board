@@ -92,5 +92,4 @@ class SSRPlus
         $uri .= "\r\n";
         return $uri;
     }
-
 }

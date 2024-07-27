@@ -5,7 +5,8 @@ namespace App\Payments;
 use Stripe\Source;
 use Stripe\Stripe;
 
-class StripeCredit {
+class StripeCredit
+{
     public function __construct($config)
     {
         $this->config = $config;

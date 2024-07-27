@@ -3,8 +3,10 @@
 namespace App\Payments;
 
 
-class BTCPay {
-    public function __construct($config) {
+class BTCPay
+{
+    public function __construct($config)
+    {
         $this->config = $config;
     }
 
@@ -34,7 +36,8 @@ class BTCPay {
         ];
     }
 
-    public function pay($order) {
+    public function pay($order)
+    {
 
         $params = [
             'jsonResponse' => true,
@@ -50,8 +53,8 @@ class BTCPay {
         $ret_raw = self::_curlPost($this->config['btcpay_url'] . 'api/v1/stores/' . $this->config['btcpay_storeId'] . '/invoices', $params_string);
 
         $ret = @json_decode($ret_raw, true);
-        
-        if(empty($ret['checkoutLink'])) {
+
+        if (empty($ret['checkoutLink'])) {
             abort(500, "error!");
         }
         return [
@@ -60,7 +63,8 @@ class BTCPay {
         ];
     }
 
-    public function notify($params) {
+    public function notify($params)
+    {
         $payload = trim(file_get_contents('php://input'));
 
         $headers = getallheaders();
@@ -90,9 +94,9 @@ class BTCPay {
         $invoiceDetail = file_get_contents($this->config['btcpay_url'] . 'api/v1/stores/' . $this->config['btcpay_storeId'] . '/invoices/' . $json_param['invoiceId'], false, $context);
         $invoiceDetail = json_decode($invoiceDetail, true);
 
-    
+
         $out_trade_no = $invoiceDetail['metadata']["orderId"];
-        $pay_trade_no=$json_param['invoiceId'];
+        $pay_trade_no = $json_param['invoiceId'];
         return [
             'trade_no' => $out_trade_no,
             'callback_no' => $pay_trade_no
@@ -102,8 +106,9 @@ class BTCPay {
     }
 
 
-    private function _curlPost($url,$params=false){
-        
+    private function _curlPost($url, $params = false)
+    {
+
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HEADER, 0);
@@ -111,7 +116,9 @@ class BTCPay {
         curl_setopt($ch, CURLOPT_TIMEOUT, 300);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
         curl_setopt(
-            $ch, CURLOPT_HTTPHEADER, array('Authorization:' .'token '.$this->config['btcpay_api_key'], 'Content-Type: application/json')
+            $ch,
+            CURLOPT_HTTPHEADER,
+            array('Authorization:' . 'token ' . $this->config['btcpay_api_key'], 'Content-Type: application/json')
         );
         $result = curl_exec($ch);
         curl_close($ch);
@@ -125,7 +132,7 @@ class BTCPay {
      * @return bool
      */
     private function hashEqual($str1, $str2)
-    {   
+    {
 
         if (function_exists('hash_equals')) {
             return \hash_equals($str1, $str2);
@@ -143,6 +150,4 @@ class BTCPay {
             return !$ret;
         }
     }
-    
 }
-

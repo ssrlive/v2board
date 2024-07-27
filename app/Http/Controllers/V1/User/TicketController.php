@@ -169,7 +169,8 @@ class TicketController extends Controller
             DB::rollback();
             abort(500, __('Failed to open ticket'));
         }
-        $message = sprintf("%s\r\n%s",
+        $message = sprintf(
+            "%s\r\n%s",
             __('Withdrawal method') . "：" . $request->input('withdraw_method'),
             __('Withdrawal account') . "：" . $request->input('withdraw_account')
         );

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Services;
 
 use App\Jobs\SendTelegramJob;
@@ -6,7 +7,8 @@ use App\Models\User;
 use \Curl\Curl;
 use Illuminate\Mail\Markdown;
 
-class TelegramService {
+class TelegramService
+{
     protected $api;
 
     public function __construct($token = '')

@@ -29,7 +29,8 @@ class Shadowsocks
         $bytesRemaining = $user['transfer_enable'] - $bytesUsed;
 
         foreach ($servers as $item) {
-            if ($item['type'] === 'shadowsocks'
+            if (
+                $item['type'] === 'shadowsocks'
                 && in_array($item['cipher'], ['aes-128-gcm', 'aes-256-gcm', 'aes-192-gcm', 'chacha20-ietf-poly1305'])
             ) {
                 array_push($configs, self::SIP008($item, $user));
@@ -41,7 +42,7 @@ class Shadowsocks
         $subs['bytes_remaining'] = $bytesRemaining;
         $subs['servers'] = array_merge($subs['servers'] ? $subs['servers'] : [], $configs);
 
-        return json_encode($subs, JSON_UNESCAPED_SLASHES|JSON_PRETTY_PRINT);
+        return json_encode($subs, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
     }
 
     public static function SIP008($server, $user)

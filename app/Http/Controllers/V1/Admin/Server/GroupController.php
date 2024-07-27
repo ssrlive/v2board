@@ -27,7 +27,7 @@ class GroupController extends Controller
             $serverGroups[$k]['server_count'] = 0;
             foreach ($servers as $server) {
                 if (in_array($v['id'], $server['group_id'])) {
-                    $serverGroups[$k]['server_count'] = $serverGroups[$k]['server_count']+1;
+                    $serverGroups[$k]['server_count'] = $serverGroups[$k]['server_count'] + 1;
                 }
             }
         }
